@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>產品列表</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css"
+    />
+  </head>
+
+  <body>
+    <div class="container">
+      <h2>產品列表</h2>
+      <div id="app" class="card-columns"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+      let obj = {
+        data: {
+          uuid: "069602ae-7e90-4b68-ab74-eede1d9ee78e",
+          products: [],
+        },
+        getData() {
+          let vm = this;
+          let url = `https://course-ec-api.hexschool.io/api/${this.data.uuid}/ec/products`;
+          axios.get(url).then(function (res) {
+            vm.data.products = res.data.data;
+            vm.render();
+          });
+        },
+        render() {
+          let app = document.querySelector("#app");
+          let str = "";
+          this.data.products.forEach((item) => {
+            str += `
+            <div class="card">
+              <img src="${item.imageUrl[0]}" class="card-img-top">
+              <div class=card-body>
+                <h5 class="card-title">${item.title}</h5>
+                <p class="card-text">${item.content}</p>
+              </div>
+            </div>
+            `;
+          });
+          app.innerHTML = str;
+        },
+      };
+
+      obj.getData();
+    </script>
+  </body>
+</html>
