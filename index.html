@@ -26,7 +26,7 @@
         getData() {
           let vm = this;
           let url = `https://course-ec-api.hexschool.io/api/${this.data.uuid}/ec/products`;
-          axios.get(url).then(function (res) {
+          axios.get(url).then((res) => {
             vm.data.products = res.data.data;
             vm.render();
           });
